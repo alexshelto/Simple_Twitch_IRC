@@ -1,4 +1,7 @@
 
+
+.DS_Store
+
 # File that holds some secret keys
 config.py
 src/config.py
