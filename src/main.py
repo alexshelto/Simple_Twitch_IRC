@@ -49,6 +49,11 @@ def main() -> int:
             channel = get_channel_name()
             irc.view_chat(channel)
 
+        elif user_choice == 1:
+            channel = get_channel_name()
+            irc.view_chat(channel, True)
+
+
         if user_choice == 3:
             break
 

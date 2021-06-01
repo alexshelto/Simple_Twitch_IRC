@@ -3,6 +3,7 @@ import socket
 import time
 from datetime import datetime
 
+from Logger import Logger
 
 # IRC CLIENT irc://irc.chat.twitch.tv:6667
 server='irc.chat.twitch.tv'
@@ -22,8 +23,8 @@ class IRC_BOT:
     def __init__(self, uname, oauth):
         self.username = uname
         self.oauth = oauth
-        #self.channel = ''
         self.irc = None 
+        self.logger = None
 
 
     def connect_irc(self,channel):
@@ -54,10 +55,14 @@ class IRC_BOT:
 
     def view_chat(self,channel, log=False):
         print(f'Attempting to join: {channel}')
+
         did_connect = self.connect_irc(channel)
         if did_connect != True:
             print('failed to connect')
             return 
+        
+        self.logger = Logger(channel.split('#')[1:])
+
 
         while True:
             try:
@@ -76,9 +81,21 @@ class IRC_BOT:
                         username, message = parse_chat_msg(resp)
                         print(f'{time} | {username} | {message}')
 
+                        if log == True:
+                            self.logger.data.append({'date': date, 'time': time, 'channel': channel, 'username': username, 'message': message})
+                        
+
             except KeyboardInterrupt:
                 print('\n\nExiting Chat View\n\n')
-                self.irc = None
+                
+                #killing irc
+                self.irc.close()
+                self.irc = None                 
+
+                #killing logger and saving data 
+                self.logger.write_to_file()
+                self.logger = None
+
                 break
 
 
