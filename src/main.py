@@ -17,21 +17,22 @@ CHANNEL = '#soursweet'
 # IRC CLIENT irc://irc.chat.twitch.tv:6697
 
 #server='irc://irc.chat.twitch.tv'
-server='irc-ws.chat.twitch.tv'
-port='6697'
+server='irc.chat.twitch.tv'
+port=6667
+
 
 
 ircbot = socket.socket()
-ircbot.connect((server,int(port)))
-ircbot.send(f"PASS {config['OAUTH_TOKEN']}\n".encode('utf-8'))
-ircbot.send(f"NICK {config['BOT_USERNAME']}\n".encode('utf-8'))
-ircbot.send(f"JOIN #soursweet\n".encode('utf-8'))
+ircbot.connect((server,port))
+
+ircbot.send(f"PASS {OAUTH_TOKEN}\n".encode('utf-8'))
+ircbot.send(f"NICK {BOT_USERNAME}\n".encode('utf-8'))
+ircbot.send(f"JOIN #nickmercs\n".encode('utf-8'))
 
 
-resp = ircbot.recv(2048).decode('utf-8')
-print(resp)
+while True:
+    resp = ircbot.recv(2048).decode('utf-8')
+    if resp.startswith('PING'):
+        ircbot.send("PONG\n".encode('utf-8'))
+    print(resp)
 
-'''
-ircbot.send(f'PASS {config["OAUTH_TOKEN"]}')
-ircbot.send(f'NICK {config["BOT_USERNAME"]}')
-'''
