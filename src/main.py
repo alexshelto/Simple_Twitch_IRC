@@ -1,5 +1,4 @@
 
-import argparse
 
 from config import CONFIG
 from IRC_BOT import IRC_BOT
@@ -34,18 +33,7 @@ def get_channel_name() -> str:
 
 
 def main() -> int:
-    # Command Line arguments
-    parser = argparse.ArgumentParser()
-    # parser.add_argument('channel', help='Channel To Join') 
-    parser.add_argument(
-            '-l', '--log', '--logging', default=False, help='Enableing logging will log each chat sent to channel in txt file'
-            )
-
-    args = parser.parse_args() # parsing arguments
-
-    if args.log != False:
-        args.log = True
-    
+    # Creating IRC bot instance
     irc = IRC_BOT(CONFIG['BOT_USERNAME'], CONFIG['OAUTH_TOKEN'])
 
     # Main Loop
@@ -63,7 +51,6 @@ def main() -> int:
 
         if user_choice == 3:
             break
-
 
     return 0
 
