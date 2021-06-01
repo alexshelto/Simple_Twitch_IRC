@@ -27,11 +27,6 @@ def menu():
     return int(choice)
 
 
-def get_channel_name() -> str:
-    channel_name = input('enter the twitch channel to join: ')
-    return f'#{channel_name.lower()}'
-
-
 def main() -> int:
     # Creating IRC bot instance
     irc = IRC_BOT(CONFIG['BOT_USERNAME'], CONFIG['OAUTH_TOKEN'])
@@ -46,12 +41,12 @@ def main() -> int:
 
         # View Chat from channel
         if user_choice == 0:
-            channel = get_channel_name()
-            irc.view_chat(channel)
+            channel = input('enter the twitch channel: ')
+            irc.view_chat(channel.lower())
 
         elif user_choice == 1:
-            channel = get_channel_name()
-            irc.view_chat(channel, True)
+            channel = input('enter the twitch channel: ')
+            irc.view_chat(channel.lower(), True)
 
 
         if user_choice == 3:

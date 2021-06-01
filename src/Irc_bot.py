@@ -56,12 +56,12 @@ class IRC_BOT:
     def view_chat(self,channel, log=False):
         print(f'Attempting to join: {channel}')
 
-        did_connect = self.connect_irc(channel)
+        did_connect = self.connect_irc(f'#{channel}')
         if did_connect != True:
             print('failed to connect')
             return 
         
-        self.logger = Logger(channel.split('#')[1:])
+        self.logger = Logger(channel)
 
 
         while True:
