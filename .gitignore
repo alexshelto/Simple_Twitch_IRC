@@ -1,6 +1,8 @@
 
 # File that holds some secret keys
 config.py
+src/config.py
+config.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
