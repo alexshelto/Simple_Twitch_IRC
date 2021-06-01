@@ -1,12 +1,9 @@
 
 import socket
 
-from dotenv import dotenv_values
-
-config = dotenv_values(".env") # Loading enviornment vars form .env file
 
 
-
+'''
 HOST = 'irc.twitch.tv'
 PORT = 6667
 CHANNEL = '#soursweet'
@@ -20,6 +17,8 @@ CHANNEL = '#soursweet'
 server='irc.chat.twitch.tv'
 port=6667
 
+BOT_USERNAME="be9ns"
+OAUTH_TOKEN="oauth:xxycfz8i5f2dqav27mt9chngi705u7"
 
 
 ircbot = socket.socket()
@@ -35,4 +34,7 @@ while True:
     if resp.startswith('PING'):
         ircbot.send("PONG\n".encode('utf-8'))
     print(resp)
+'''
+
+if __name__ == '__main__':
 
