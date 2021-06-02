@@ -2,6 +2,9 @@
 
 .DS_Store
 
+logs/*.csv
+*.csv
+
 # File that holds some secret keys
 config.py
 src/config.py

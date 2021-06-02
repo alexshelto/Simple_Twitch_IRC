@@ -48,8 +48,7 @@ def main() -> int:
             channel = input('enter the twitch channel: ')
             irc.view_chat(channel.lower(), True)
 
-
-        if user_choice == 3:
+        if user_choice == 2:
             break
 
     return 0

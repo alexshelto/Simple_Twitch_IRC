@@ -84,6 +84,18 @@ class IRC_BOT:
                         if log == True:
                             self.logger.data.append({'date': date, 'time': time, 'channel': channel, 'username': username, 'message': message})
                         
+            # Socket disconnection
+            except socket.error:
+                print('lost connection, reconnecting')
+                self.irc.close()
+                self.irc = None
+
+                self.logger.write_to_file()
+                self.logger = None
+
+                self.view_chat(channel, log)
+
+
 
             except KeyboardInterrupt:
                 print('\n\nExiting Chat View\n\n')

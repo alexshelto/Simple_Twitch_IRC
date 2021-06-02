@@ -14,9 +14,9 @@ class Logger:
         filename = f'../logs/{self.channel}.csv'
 
         if os.path.isfile(filename):
-            csv_data.to_csv(filename, mode='a', header=False)
+            csv_data.to_csv(filename, mode='a', header=False, index=False)
         else:
-            csv_data.to_csv(filename, sep=',')
+            csv_data.to_csv(filename, sep=',', index=False)
 
 
 
