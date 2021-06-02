@@ -16,7 +16,7 @@ class Logger:
         if os.path.isfile(filename):
             csv_data.to_csv(filename, mode='a', header=False, index=False)
         else:
-            csv_data.to_csv(filename, sep=',', index=False)
+            csv_data.to_csv(filename, sep='\t', index=False)
 
 
 

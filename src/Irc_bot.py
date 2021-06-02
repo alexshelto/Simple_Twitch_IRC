@@ -53,8 +53,11 @@ class IRC_BOT:
             if retry_count == 8:
                 return False
 
-    def view_chat(self,channel, log=False):
+
+    def view_chat(self,channel, log):
         print(f'Attempting to join: {channel}')
+
+        need_reconnect = False # Made True if disconnected unintentionally 
 
         did_connect = self.connect_irc(f'#{channel}')
         if did_connect != True:
@@ -79,7 +82,12 @@ class IRC_BOT:
                         time = now.strftime("%H:%M:%S")
 
                         username, message = parse_chat_msg(resp)
-                        print(f'{time} | {username} | {message}')
+
+                        message = message.replace("\n", "")
+
+                        #print(f'{time} | {username} | {message}')
+                        color = '\033[1m\033[3m\033[38;5;21m'
+                        print(f'<{color}{username}\033[m> {message}')
 
                         if log == True:
                             self.logger.data.append({'date': date, 'time': time, 'channel': channel, 'username': username, 'message': message})
@@ -87,29 +95,25 @@ class IRC_BOT:
             # Socket disconnection
             except socket.error:
                 print('lost connection, reconnecting')
-                self.irc.close()
-                self.irc = None
-
-                self.logger.write_to_file()
-                self.logger = None
-
-                self.view_chat(channel, log)
-
-
-
-            except KeyboardInterrupt:
-                print('\n\nExiting Chat View\n\n')
-                
-                #killing irc
-                self.irc.close()
-                self.irc = None                 
-
-                #killing logger and saving data 
-                self.logger.write_to_file()
-                self.logger = None
-
+                need_reconnect = True
                 break
 
+            # Keyboard interrupt to exit chat
+            except KeyboardInterrupt:
+                print('\n\nExiting Chat View\n\n')
+                break
+                
+        #killing irc
+        self.irc.close()
+        self.irc = None                 
+
+        #killing logger and saving data 
+        if log == True:
+            self.logger.write_to_file()
+            self.logger = None
+
+        if need_reconnect == True:
+            self.view_chat(channel, log)
 
     
 
