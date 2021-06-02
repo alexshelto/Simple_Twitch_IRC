@@ -12,17 +12,20 @@ def menu():
         print(f'[{idx}] : {option}')
     print('#'* 18  + '#' * 18)
 
-    try:
-        choice = input('Select what you would like to do: ')
+    valid_choice = False
+    
+    while not valid_choice:
+        try:
+            choice = input('Select what you would like to do: ')
 
-        if not 0 <= int(choice) < len(options):
+            if not 0 <= int(choice) < len(options):
+                print('not a valid option')
+
+            else:
+                valid_choice = True
+
+        except ValueError:
             print('not a valid option')
-            menu()
-
-    except ValueError:
-        print('not a valid option')
-        menu()
-
 
     return int(choice)
 
@@ -42,7 +45,7 @@ def main() -> int:
         # View Chat from channel
         if user_choice == 0:
             channel = input('enter the twitch channel: ')
-            irc.view_chat(channel.lower())
+            irc.view_chat(channel.lower(), False)
 
         elif user_choice == 1:
             channel = input('enter the twitch channel: ')
