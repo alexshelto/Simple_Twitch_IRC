@@ -1,4 +1,3 @@
-
 import socket
 import time
 from datetime import datetime
@@ -37,7 +36,7 @@ class IRC_BOT:
             self.irc = socket.socket()
             self.irc.connect((server, port))
             self.irc.send(f'PASS {self.oauth}\n'.encode('utf-8'))
-            self.irc.send(f'NICK {self.username}\n'.encode('utf-8'))
+            self.irc.send(f'NICK {elf.username}\n'.encode('utf-8'))
             self.irc.send(f'JOIN {channel}\n'.encode('utf-8'))
 
             return True
@@ -112,7 +111,3 @@ class IRC_BOT:
 
         if need_reconnect == True:
             self.view_chat(channel, log)
-
-    
-
-
