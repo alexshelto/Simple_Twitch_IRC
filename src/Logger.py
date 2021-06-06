@@ -4,7 +4,6 @@ import pandas as pd
 
 class Logger:
     '''logs chat data to csv file'''
-
     def __init__(self, channel):
         self.channel = channel
         self.data = []

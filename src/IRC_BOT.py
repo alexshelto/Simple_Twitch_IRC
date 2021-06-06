@@ -1,3 +1,4 @@
+
 import socket
 import time
 from datetime import datetime
@@ -36,7 +37,7 @@ class IRC_BOT:
             self.irc = socket.socket()
             self.irc.connect((server, port))
             self.irc.send(f'PASS {self.oauth}\n'.encode('utf-8'))
-            self.irc.send(f'NICK {elf.username}\n'.encode('utf-8'))
+            self.irc.send(f'NICK {self.username}\n'.encode('utf-8'))
             self.irc.send(f'JOIN {channel}\n'.encode('utf-8'))
 
             return True
@@ -81,6 +82,8 @@ class IRC_BOT:
                         time = now.strftime("%H:%M:%S")
 
                         username, message = parse_chat_msg(resp)
+
+                        message = message.replace("\n", "")
 
                         #print(f'{time} | {username} | {message}')
                         color = '\033[1m\033[3m\033[38;5;21m'
